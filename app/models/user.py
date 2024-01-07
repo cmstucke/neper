@@ -13,6 +13,11 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    image_url = db.Column(db.String, nullable=True)
+
+    recipes = db.relationship('Recipe', back_populates='users', cascade='all, delete')
+    recipe_images = db.relationship('RecipeImage', back_populates='users', cascade='all, delete')
+    comments = db.relationship('Comment', back_populates='users', cascade='all, delete')
 
     @property
     def password(self):

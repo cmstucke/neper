@@ -16,6 +16,8 @@ class Recipe(db.Model):
   background = db.Column(db.String, nullable=False)
 
   users = db.relationship('User', back_populates='recipes')
+  recipe_images = db.relationship('RecipeImage', back_populates='recipes', cascade='all, delete')
+  comments = db.relationship('Comment', back_populates='recipes', cascade='all, delete')
 
   def to_dict(self):
     return {

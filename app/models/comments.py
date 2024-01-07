@@ -1,7 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
-class RecipeImages(db.Model):
-  __tablename__ = 'recipe_images'
+class Comment(db.Model):
+  __tablename__ = 'comments'
 
   if environment == 'production':
   __table_args__ = { 'schema': SCHEMA }
@@ -9,11 +9,11 @@ class RecipeImages(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
   recipe_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('recipes.id')), nullable=False)
-  category = db.Column(db.String, nullable=False)
-  description = db.Column(db.String, nullable=False)
-  image_url = db.Column(db.String, nullable=False)
+  interaction = db.Column(db.String, nullable=False)
+  content = db.Column(db.String, nullable=False)
+  image_url = db.Column(db.String, nullable=True)
 
-  users = db.relationship('User', back_populates='recipe_images')
+  users = db.relationship('User', back_populates='recipes')
   recipes = db.relationship('Recipe', back_populates='recipe_images')
 
   def to_dict(self):
@@ -21,7 +21,7 @@ class RecipeImages(db.Model):
       'id': self.id,
       'owner_id': self.owner_id,
       'recipe_id': self.recipe_id,
-      'category': self.category,
-      'description': self.description,
+      'interaction': self.interaction,
+      'content': self.content,
       'image_url': self.image_url
     }
