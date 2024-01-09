@@ -4,7 +4,7 @@ from random import randint
 
 def seed_recipes():
 
-  recipe1 = Recipe(
+  recipe_1 = Recipe(
     owner_id = 1,
     title = 'Egg Over Easy',
     category = 'Breakfast',
